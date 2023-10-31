@@ -5,7 +5,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from account.api import signup
+
 urlpatterns = [
+    path('signup/', signup, name='signup'),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
