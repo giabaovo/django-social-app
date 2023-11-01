@@ -105,12 +105,8 @@ export default {
                     console.log(response.data.message)
                     if(response.data.message === "success") {
                         this.toastStore.showToast(5000, 'The user is registered. Please login.', 'bg-emerald-500')
-
-                        this.form.name = ""
-                        this.form.email = ""
-                        this.form.password1 = ""
-                        this.form.password2 = ""
-
+                        
+                        this.$router.push("/login")
                     } else {
                         this.toastStore.showToast(5000, 'Something went wrong. Please try again', 'bg-red-300')
                     }
