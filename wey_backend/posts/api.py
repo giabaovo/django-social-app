@@ -6,12 +6,26 @@ from posts.models import Post
 from posts.serializers import PostSerializer
 from posts.forms import PostForm
 
+from account.models import User
+from account.serializers import UserSerializer
+
+
 @api_view(["GET"])
 def posts_list(request):
     posts = Post.objects.all()
 
     serializer = PostSerializer(posts, many=True)
     return JsonResponse(serializer.data, safe=False)
+
+@api_view(["GET"])
+def posts_list_by_profile(request, id):
+    user = User.objects.get(pk=id)
+    posts = Post.objects.filter(created_by_id=id)
+
+    posts_serializer = PostSerializer(posts, many=True)
+    user_serializer = UserSerializer(user)
+
+    return JsonResponse({"posts": posts_serializer.data, "user": user_serializer.data}, safe=False)
 
 @api_view(["POST"])
 def post_create(request):
